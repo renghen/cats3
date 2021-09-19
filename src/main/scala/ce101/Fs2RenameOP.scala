@@ -14,7 +14,8 @@ object Fs2RenameOP extends IOApp.Simple:
       .evalFilter(file => Files[IO].isRegularFile(file))
       .evalMap { file =>
         val newName = Paths.get(RenameOP.newName(file.toString, dir))
-        IO { println(file) } //*> Files[IO].move(file.toNioPath, newName)
+        IO { println(file) } 
+        // *> Files[IO].move(file.toNioPath, newName)
       }
       .compile
       .drain

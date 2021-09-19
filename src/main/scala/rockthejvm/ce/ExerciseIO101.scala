@@ -11,7 +11,7 @@ object ExerciseIO101:
 
   def sequenceTakeFirst[A, B](ioa: IO[A], iob: IO[B]): IO[A] =
     ioa.flatMap(a => iob.map(_ => a))
-    // ioa <* iob //can also
+  // ioa <* iob //can also
 
   def forever[A](io: IO[A]): IO[A] =
     io.flatMap(_ => forever(io))
@@ -28,11 +28,14 @@ object ExerciseIO101:
     else sumIO(n - 1).map(prev => n + prev)
 
   def fibonacci(n: Int): IO[BigInt] =
-    if (n == 1) then IO(BigInt(1))
-    else if (n == 2) then IO(BigInt(1))
-    else fibonacci(n).flatMap(curr => fibonacci(n - 1).map(prev => prev + curr))
+    if (n <= 2) then IO(BigInt(1))
+    else
+      for {
+        a <- IO(fibonacci(n - 1)).flatten
+        b <- IO(fibonacci(n - 2)).flatten
+      } yield a + b
 
   @main
   def testFunc() =
     import cats.effect.unsafe.implicits.global
-    forever(IO.println("cats forever...")).unsafeRunSync()
+    fibonacci(50).flatMap { a => IO.println(a) }.unsafeRunSync()
