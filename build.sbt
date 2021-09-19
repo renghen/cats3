@@ -1,8 +1,9 @@
-val scala3Version = "3.0.0"
-val catsEffectVersion = "3.1.1"
+val scala3Version = "3.0.1"
+val catsEffectVersion = "3.2.9"
 val catsCoreVersion = "2.6.1"
-val fs2Version = "3.0.3"
-val dottyCPSasync = "0.7.0"
+val fs2Version = "3.1.2"
+val dottyCPSasyncVersion = "0.9.3"
+val cpsAsyncConnectCatsEffectVersion = "0.9.0"
 
 lazy val root = project
   .in(file("."))
@@ -17,8 +18,8 @@ lazy val root = project
       "org.typelevel" %% "cats-effect-kernel" % catsEffectVersion,
       "org.typelevel" %% "cats-effect-std" % catsEffectVersion,
       "co.fs2" %% "fs2-io" % fs2Version,
-      "com.github.rssh" %% "dotty-cps-async" % dottyCPSasync,
-      // "com.github.rssh" %% "cps-async-connect-cats-effect" % "0.4.0",
+      "com.github.rssh" %% "dotty-cps-async" % dottyCPSasyncVersion,
+      "com.github.rssh" %% "cps-async-connect-cats-effect" % cpsAsyncConnectCatsEffectVersion,
       "org.scalameta" %% "munit" % "0.7.26" % Test
     ),
     scalacOptions ++= Seq(
